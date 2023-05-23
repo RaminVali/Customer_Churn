@@ -1,7 +1,7 @@
 
 #! /usr/bin/sh
 
-echo "Welcome to the Customer CHurn Prediction Project:"
+echo "Welcome to the Customer Churn Prediction Project:"
 
 # Create workspace
 echo "Create a resource group:"
