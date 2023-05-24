@@ -6,10 +6,15 @@ data originally from [here](https://community.ibm.com/community/user/businessana
 Got retrieved from hugging face [here](https://huggingface.co/datasets/scikit-learn/churn-prediction)
 
 # Set up
+
+## Pre requisits:
+Azure subscription
+
 ## Provision Workspace and Compute resources
 Go to Azure portal, cloud shell, open bash
-type the following in the terminal 
+type the following in the terminal (or use shit + insert)
 ``` 
+ rm -r Customer_Churn -f
 git clone https://github.com/RaminVali/Customer_Churn
 ```
 
@@ -45,6 +50,6 @@ Wait for the script to complete - this typically takes around 5-10 minutes.
 - Run the following command to clone a Git repository containing notebooks, data, and other files to your workspace: 
 
 ```
-https://github.com/RaminVali/Customer_Churn
+git clone https://github.com/RaminVali/Customer_Churn
 ```
 Once clones open the nb1 notebook in the compute instance created 
