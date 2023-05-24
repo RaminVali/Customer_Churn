@@ -53,3 +53,10 @@ Wait for the script to complete - this typically takes around 5-10 minutes.
 git clone https://github.com/RaminVali/Customer_Churn
 ```
 Once clones open the nb1 notebook in the compute instance created 
+
+Refresh the file explorer pane
+
+click on nb1.ipynb and open it. Run the cells in the same order as presented.
+# Add which Kernel to select - like Python 3.10 - SDK v2
+
+Add your subscription ID in the appropriate place in the second cell
