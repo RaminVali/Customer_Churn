@@ -11,7 +11,7 @@ Got retrieved from hugging face [here](https://huggingface.co/datasets/scikit-le
 Azure subscription
 
 ## Provision Workspace and Compute resources
-Go to Azure portal, cloud shell, open bash
+Go to Azure [portal](https://portal.azure.com/#home), cloud shell, open bash
 type the following in the terminal (or use shit + insert)
 ``` 
  rm -r Customer_Churn -f
@@ -57,6 +57,7 @@ Once clones open the nb1 notebook in the compute instance created
 Refresh the file explorer pane
 
 click on nb1.ipynb and open it. Run the cells in the same order as presented.
+You will have to wait for some of the cells to have the desired effect in azure ml before proceeding. This can take anywhere form 5 to 20 minutes. Normally we will wait for the notification to pop up. 
 # Add which Kernel to select - like Python 3.10 - SDK v2
 
 Add your subscription ID in the appropriate place in the second cell
