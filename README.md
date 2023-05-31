@@ -68,7 +68,6 @@ In the terminal, install the Python SDK on the compute instance by running the f
 ```
  pip uninstall azure-ai-ml
  pip install azure-ai-ml
- pip install mltable
  ```
 
 - Run the following command to clone a Git repository containing notebooks, data, and other files to your workspace: 
