@@ -7,21 +7,22 @@ The Global Telecommunication [Market](https://www.skyquestt.com/report/telecommu
 
 Therefore, the goal of predicting if a customer will move to a competitor (churn) is motivated. If the telco can get to the customers who are on the verge of churning before they do so, they can offer incentive for the customer to stay. The churn can be predicted using the customer data and machine learning techniques. 
 
-
-
-
-
 ## Data Source
 The telco customer churn data is originally from [here](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113)and the data for the project is retrieved from hugging face [here](https://huggingface.co/datasets/scikit-learn/churn-prediction). A copy can be retrieved under the data folder.
 
 ## Repository Contents
 - EDA.ipynb: The explotary data analysis is presented in the EDA notebook. It involves all the standard procedure for data exploration, cleaning, feature engineering and feature extraction.
 
+- requirements.txt: The packages required to run the EDA.
+
 - production.ipynb: This notebook works through the whole production section beginning with the connection with the workspace, creating the data asset, creating compute cluster, creating the custom pipeline environment, creating pipeline components with [Python SDK V2](https://learn.microsoft.com/en-us/azure/machine-learning/concept-v2?view=azureml-api-2#azure-machine-learning-python-sdk-v2), loading and executing the pipeline, registering the model, creating an online endpoint, and finally endpoint deployment.
 
 - sample_data.json: input to test the online deployment.
 
 - setup.sh: shell file to provision the resource group and workspace for the project using the Azure CLI. This file has to be run in Azure portal cloud shell first. 
+
+# EDA Setup
+The environment requirements are included in requirements.exe; as such they can be installed in an environment and run the EDA notebook.
 
 # Production Setup: 
 
@@ -46,14 +47,14 @@ If you get permission denied error run after cd-ing into the root folder:
 ```
 chmod +x setup.sh
 ```
-before running the ```setup.sh``` file.
+before running the ```setup.sh``` file. The  ```setup.sh``` will create the workspace, resource group and the compute instance required to run the project for production. 
 
 Wait for the script to complete - this typically takes around 5-10 minutes.
 
 ## Clone repository into the Azure ML Studio
 In the Azure portal, navigate to the Azure Machine Learning workspace named ```customer_churn_proj```.
 
-Select the Azure Machine Learning workspace, and in its overview page, select Launch studio.
+Select the Azure Machine Learning workspace just created, and in its overview page, select Launch studio.
 
 Another tab will open in your browser to open the Azure Machine Learning studio.
 
@@ -84,6 +85,8 @@ You will need to add your subscription ID in the appropriate place in the second
 # Production Discussion:
 Beginning with the data, it is best to register it as an asset. Once the data is registered as an asset in the workspace, it will appear under the data tab:
 
+## Creating a data asset
+Once the data asset is created you have to 
 ![Registered Dataset](img/Data-registered.png)
 
-bfebf
+## Compute cluster for pipeline
