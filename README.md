@@ -49,9 +49,12 @@ chmod +x setup.sh
 ```
 before running the ```setup.sh``` file. The  ```setup.sh``` will create the workspace, resource group and the compute instance required to run the project for production. 
 
-Wait for the script to complete - this typically takes around 5-10 minutes.
+Wait for the script to complete - this typically takes around 5-10 minutes. Once the the shell script has finished executing, we will have a resource group called ```rg-churn-pred-proj``` and a workspace called ```churn-pred-proj```. There will also be a computing instance set up that we wil use to run the production notebook on.
 
-## Clone repository into the Azure ML Studio
+![compute instance](img/compute-instance.png)
+
+
+## Clone the repository into the Azure ML Studio
 In the Azure portal, navigate to the Azure Machine Learning workspace named ```customer_churn_proj```.
 
 Select the Azure Machine Learning workspace just created, and in its overview page, select Launch studio.
@@ -67,7 +70,6 @@ In the Compute instances tab, find your compute instance, and select the Termina
 In the terminal, install the Python SDK on the compute instance by running the following commands in the terminal:
 
 ```
- pip uninstall azure-ai-ml
  pip install azure-ai-ml
  ```
 
@@ -76,17 +78,74 @@ In the terminal, install the Python SDK on the compute instance by running the f
 ```
 git clone https://github.com/RaminVali/Customer_Churn
 ```
-Once clones open the nb1 notebook in the compute instance created 
+Once clones open the production.ipynb notebook in the compute instance created 
 
-Refresh the file explorer pane and click on production.ipynb and open it. Please select Python 3.10 - SDK v2 and run the cells in the same order as presented, noting the steps that require for you to wait while environments/compute clusters etc, are spun. 
-
-You will need to add your subscription ID in the appropriate place in the second cell.
+To do this, refresh the file explorer pane and click on production.ipynb and open it. Please select Python 3.10 - SDK v2 and run the cells in the same order as presented, noting the steps that require for you to wait while environments/compute clusters etc, are spun. 
 
 # Production Discussion:
+This section presents the guide t various parts of the project whilst run through the notebook and the screen shots for the appropriate outputs you should be getting at each stage.
+
+You will need to add your subscription ID in the appropriate place in the second cell. this is obtainable from the portal page.
+
 Beginning with the data, it is best to register it as an asset. Once the data is registered as an asset in the workspace, it will appear under the data tab:
 
 ## Creating a data asset
-Once the data asset is created you have to 
+Once the data asset is created you can check it unnder the data tab.
 ![Registered Dataset](img/Data-registered.png)
 
 ## Compute cluster for pipeline
+We will run the project on a cpu cluster compute resource that we define. This can be viewed on under the compute clusters in the compute section.
+
+![computer-cluster](img/compute-cluster.png) 
+
+## Pipeline job environment creation
+We need to define a custom environment for our production pipeline. There are various ways to do this, in this instance we will use conda and a yaml file to define our environment and submit it as a job to be created. Once it is created it can be be viewed under the environments tab.
+
+![environment -created](img/environment-created.png)
+
+## Building the pipeline
+Pipelines are the backbones of the production ready code. they are flexible and scalable workflow structures that can be put into production and scheduled for the future repeats as well. 
+
+The pipeline used in this project has two components. The first is the prep-data where data cleaning, preprocessing, and feature extraction and encoding are performed. 
+
+The second component is the train-model, where training and evaluation is performed and various artifact and figures are logged for future use, though mlflow.
+
+Each of the components has a yaml file defining the inputs and outs, environment to be used and other metadata. Once the pipeline ha finished executing, then we will have the following:
+
+![pipeline-success](img/pipeline-success.png) 
+The model will be in the mnt directory. There is an mlflow bug that stopps the model appearing on the local folder.
+
+The pipeline job gives us the following artifacts:
+
+![clf](img/clf.png)
+![confusion](img/confusion.png)
+![roc](img/roc.png)
+![model](img/model.png)
+![model-folder](img/model-folder.png)
+
+## Register the Model
+Now that we have the model as an output for the job, we can register it using mlflow, the artifact path and run id. These are all obtainable form the MLmodel file. 
+
+![model-registered](img/model-registered.png)
+
+## Define and create an endpoint
+Now we begin preparing the endpoint to perform inference using our model. We first create an online endpoint. This is done visa the Python SDK V2. Once the endpoint is created, it will appear under the endpoints tab:
+
+![endpoint-create](img/endpoint-create.png)
+
+## Configure endpoint and deploy model to the endpoint
+
+Once the endpoint is successfully created, then it has to be configured to use the appropriate compute. Once these are in place, we can deploy the model to the newly created online endpoint. Once the model is successfully deployed, we have to update it as it takes 0% of the incoming traffic by default. We update the deployment so that it takes 100% of the traffic.
+
+![deploy1](img/deploy1.png)
+![deploy2](img/deploy2.png)
+![deploy3](img/deploy3.png)
+
+## Testing the deployment (Moment of Truth!)
+We use the sample_data.json file we have in the directory and we will feed it to the endpoint and print the response.
+
+![test](img/test.png)
+
+Remember to delete the endpoint and the resource group from azure after this. Otherwise you will incur charges.
+
+The End
