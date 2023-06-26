@@ -13,7 +13,7 @@ The telco customer churn data is originally from [IBM Business Analytics](https:
 ## Repository Contents
 - [requirements.txt](requirements.txt): The packages required to run the EDA.
 
-- [EDA.ipynb](EDA.ipynb): The explotary data analysis is presented in the EDA notebook. It involves all the standard procedure for data exploration, cleaning, feature engineering and feature extraction.
+- [EDA.ipynb](EDA.ipynb): The exploratory data analysis is presented in the EDA notebook. It involves all the standard procedure for data exploration, cleaning, feature engineering and feature extraction.
 
 - [Production.ipynb](Production.ipynb): This notebook works through the whole production phase and includes the following steps:
     - Connecting to the workspace
@@ -54,7 +54,7 @@ chmod +x setup.sh
 ```
  The  ```setup.sh``` will create the workspace, resource group and the compute instance required to run the project for production. 
 
-Wait for the script to complete - this typically takes around 5-10 minutes. Once the the shell script has finished executing, we will have a resource group called ```rg-churn-pred-proj``` and a workspace called ```churn-pred-proj```. There will also be a computing instance set up that we wil use to run the production notebook on.
+Wait for the script to complete - this typically takes around 5-10 minutes. Once the the shell script has finished executing, we will have a resource group called ```rg-churn-pred-proj``` and a workspace called ```churn-pred-proj```. There will also be a computing instance set up that we will use to run the production notebook on.
 
 ![compute instance](img/compute-instance.png)
 
@@ -109,16 +109,16 @@ We need to define a custom environment for our production pipeline. There are va
 ## Building the pipeline
 Pipelines are the backbones of the production ready code. They are flexible and scalable workflow structures that can be tracked, put into production, and scheduled for the future repeats as well. 
 
-The pipeline used in this project has two components. The first is the prep-data where data cleaning, preprocessing, feature extraction and encoding are performed. 
+The pipeline used in this project has two components. The first is the prep-data where data cleaning, pre-processing, feature extraction and encoding are performed. 
 
-The second component is the train-model, where training and evaluation is performed and various artifacts and figures are logged for future use, through [MLflow](https://mlflow.org/).
+The second component is the train-model, where training and evaluation is performed and various artefacts and figures are logged for future use, through [MLflow](https://mlflow.org/).
 
 Each of the components has a yaml file defining the inputs and outs, environment to be used and other metadata. Once the pipeline has finished executing, we will have the following:
 
 ![pipeline-success](img/pipeline-success.png) 
 The model will be in the mnt directory. There is an MLflow tracking server [open bug](https://github.com/mlflow/mlflow/issues/3536) that stops the model appearing on the local folder.
 
-The pipeline job gives us the following artifacts:
+The pipeline job gives us the following artefacts:
 
 ![clf](img/clf.png)
 ![confusion](img/confusion.png)
@@ -127,7 +127,7 @@ The pipeline job gives us the following artifacts:
 ![model-folder](img/model-folder.png)
 
 ## Register the Model
-Now that we have the model as an output for the job, we can register it using MLflow, the artifact path and run id. These are all obtainable form the MLmodel file. 
+Now that we have the model as an output for the job, we can register it using MLflow, the artefact path and run id. These are all obtainable form the MLModel file. 
 
 ![model-registered](img/model-registered.png)
 
@@ -150,5 +150,8 @@ We use the sample_data.json file we have in the directory and we will feed it to
 ![test](img/test.png)
 
 Remember to delete the endpoint and the resource group from azure after finishing the project. Otherwise you will incur charges.
+
+Here is the overall schematic diagram for the project:
+![Schematic](img/Whole_system.png)
 
 The End
