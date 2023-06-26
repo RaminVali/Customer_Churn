@@ -97,7 +97,7 @@ Once the data asset is created you can check it under the data tab.
 ![Registered Dataset](img/Data-registered.png)
 
 ## Compute cluster for pipeline
-We will run the project on a cpu cluster compute resource that we define. This can be viewed under the compute clusters in the compute section.
+We will run the project on a CPU cluster compute resource that we define. This can be viewed under the compute clusters in the compute section.
 
 ![computer-cluster](img/compute-cluster.png) 
 
